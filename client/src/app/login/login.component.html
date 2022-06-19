@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="form">
+    <h1>Connexion</h1>
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="text" matInput  formControlName="email" autocomplete="doNotAutoComplete">
+        <mat-error *ngIf="form.get('email')!.hasError('required')">
+          L'email est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput formControlName="password" autocomplete="doNotAutoComplete">
+        <mat-error *ngIf="form.get('password')!.hasError('required')">
+          Le mot de passe est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <p><button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid">Connexion</button></p>
+      <p><button mat-raised-button color="basic" [routerLink]="['/register']">Pas inscrit ? S'inscrire</button></p>
+
+    </form>
+  </div>
+</div>

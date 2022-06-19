@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="form">
+    <h1>Rentrez le code envoyé par SMS</h1>
+    <form class="example-form" [formGroup]="form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <input type="text" matInput formControlName="code" autocomplete="doNotAutoComplete">
+        <mat-error *ngIf="form.get('code')!.hasError('required')">
+          Le mot de passe est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+      <p>
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="form.invalid">
+          Connexion
+        </button>
+      </p>
+    </form>
+  </div>
+</div>
