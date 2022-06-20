@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
-    this.toastr.success("test")
   }
 
   async onSubmit() {
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
       await this.userService.connexionUser(this.form.value.email,this.form.value.password)
       this.router.navigate(["/confirmation"])
     } catch (e:any){
-      this.toastr.error(e.message)
+      this.toastr.error(e.response.data.error)
     }
   }
 }

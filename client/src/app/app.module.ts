@@ -19,8 +19,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {UserService} from "./services/user.service";
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: '', component: RegisterComponent},
+  {path: '', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'confirmation', component: ConfirmCodeComponent},
   {path: 'menu', component: IndexComponent}
 ];

@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     try {
       await this.userService.creatUser(this.form.value.email,this.form.value.password,this.form.value.tel)
       this.toastr.success("L'inscription a été effectué")
-      this.router.navigate(["/login"])
+      this.router.navigate(["/"])
     } catch (e:any){
       this.toastr.error(e.message)
     }

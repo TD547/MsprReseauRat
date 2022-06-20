@@ -38,37 +38,46 @@ exports.connexionUser = (req, res, next) => {
     User.findOne({
         email: req.body.email
     }).then(user => {
-        if (user.compt === 5) {
-            res.status(501).json({error: "Compte bloqué, contactez l'admin"})
+        if (user) {
+            if (user.compt === 5) {
+                res.status(501).json({error: "Compte bloqué, contactez l'admin"})
+            } else {
+                bcrypt.compare(req.body.password, user.password).then(boolean => {
+                    if (boolean) {
+                        user.updateOne({
+                            compt: 0
+                        }).then(() => res.status(200))
+                            .catch((err) => res.status(500).json({error: 'Peut pas changer compte', err: err.message}))
+                        let number = user.tel;
+                        messagebird.verify.create(number, {
+                            originator: 'Code',
+                            template: 'Your verification code is %token.'
+                        }, function (err, response) {
+                            if (err) {
+                                res.status(500).json({error: err.message})
+                            } else {
+                                res.status(200).json({
+                                    idUser: user._id,
+                                    tokenCode: jwt.sign(
+                                        {code_sms: response.id},
+                                        keyToken,
+                                        {expiresIn: '20h'},
+                                    )
+                                });
+                            }
+                        })
+                    } else {
+                        user.updateOne({
+                            compt: user.compt + 1
+                        }).then(() => res.status(500).json({error: 'Mauvais mot de passe ou email'}))
+                            .catch((err) => res.status(500).json({error: 'Peut pas changer compte', err: err.message}))
+                    }
+                })
+            }
         } else {
-            bcrypt.compare(req.body.password, user.password).then(boolean => {
-                if (boolean) {
-                    let number = user.tel;
-                    messagebird.verify.create(number, {
-                        originator: 'Code',
-                        template: 'Your verification code is %token.'
-                    }, function (err, response) {
-                        if (err) {
-                            res.status(500).json({error: err.message})
-                        } else {
-                            res.status(200).json({
-                                idUser: user._id,
-                                tokenCode: jwt.sign(
-                                    {code_sms: response.id},
-                                    keyToken,
-                                    {expiresIn: '20h'},
-                                )
-                            });
-                        }
-                    })
-                } else {
-                    user.updateOne({
-                        compt: user.compt + 1
-                    }).then(() => res.status(500).json(user))
-                        .catch((err) => res.status(500).json({error: 'Peut pas changer compt', err: err.message}))
-                }
-            })
+            res.status(500).json({error: 'Mauvais mot de passe ou email'})
         }
+
     })
 }
 

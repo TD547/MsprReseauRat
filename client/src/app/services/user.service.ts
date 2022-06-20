@@ -44,7 +44,7 @@ export class UserService {
         this.password = password;
         this.tokenCode = res.data.tokenCode;
         resolve();
-      }).catch((err:any) => reject(err.message))
+      }).catch((err:any) => reject(err))
     }))
   }
 
