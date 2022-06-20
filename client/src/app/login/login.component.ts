@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
+    this.toastr.success("test")
   }
 
   async onSubmit() {
