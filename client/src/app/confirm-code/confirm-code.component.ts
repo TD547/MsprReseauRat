@@ -28,7 +28,7 @@ export class ConfirmCodeComponent implements OnInit {
       await this.userService.verifCodeSms(this.form.value.code)
       this.router.navigate(["/menu"])
     } catch (e:any){
-      this.toastr.error(e.message)
+      this.toastr.error("Code erroné")
     }
   }
 }

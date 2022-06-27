@@ -3,8 +3,6 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {UserService} from "../services/user.service";
-// import {UserService} from "../services/user.service";
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

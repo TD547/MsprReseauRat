@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 
-mongoose.connect('mongodb+srv://td3:Thedemon547@cluster0.csomc.mongodb.net/?retryWrites=true&w=majority', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb+srv://thibaud:Thedemon547@cluster0.csomc.mongodb.net/?retryWrites=true&w=majority', {useUnifiedTopology: true, useNewUrlParser: true})
     .then(() => {
         console.log("connected to database")
     }).catch(err => console.log(err.message));
